@@ -205,6 +205,7 @@ class Saliens(requests.Session):
                                    bar_format='{desc:<22} {percentage:3.0f}% |{bar}| {remaining:>10}',
                                    )
         sys.stdout.write("\n")
+        print(game.player_info['clan_info']['accountid'])
         sys.stdout.flush()
 
     def print_planet_progress(self):
@@ -267,7 +268,7 @@ while not game.is_access_token_valid():
 
 # display current stats
 LOG.info("Getting player info...")
-game.represent_clan(4777282)
+game.represent_clan(148845)
 game.refresh_player_info()
 game.print_player_info()
 
@@ -298,7 +299,12 @@ while True:
     LOG.info("Joining planet %s..", planets[0]['id'])
 
     planet_id = planets[0]['id']
-    game.join_planet(planet_id)
+    
+
+    #game.join_planet(planet_id)
+
+    # hardcoded planet id for targeting purposes; use inspect element on the real site to find this
+    game.join_planet(7)
     deadline = time() + 60 * 30
 
     game.refresh_player_info()
@@ -334,12 +340,16 @@ while True:
             break
 
         zone_id = zones[0]['zone_position']
+
+
+        # hardcoded zone id; use inspect element on the real site to find this
+        zone_id = 89
         difficulty = zones[0]['difficulty']
 
         while time() < deadline and game.planet and not game.planet['zones'][zone_id]['captured']:
             game.print_player_info()
-            if 'clan_info' not in game.player_info or game.player_info['clan_info']['accountid'] != 4777282:
-                game.represent_clan(4777282)
+            if 'clan_info' not in game.player_info: # or game.player_info['clan_info']['accountid'] != 4777282:
+                game.represent_clan(148845)
             game.print_planet_progress()
             game.print_zone_progress(zone_id)
 
