@@ -353,7 +353,7 @@ while True:
 
         zone_id = zones[0]['zone_position']
 
-        print(zones)
+        #print(zones)
 
 
         # hardcoded zone id; use inspect element on the real site to find this
