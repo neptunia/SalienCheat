@@ -359,7 +359,7 @@ while True:
         # hardcoded zone id; use inspect element on the real site to find this
         zone_id = target_zone
         difficulty = 1
-        for i in zones:
+        for i in range(len(zones)):
             if zones[i]['zone_position'] == zone_id:
 
                 difficulty = zones[i]['difficulty']
