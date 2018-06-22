@@ -18,8 +18,10 @@ from tqdm import tqdm
 
 # ----------------- MODIFY THESE TARGETS ----------------- 
 target_world = 7
-target_zone = 85
+target_zone = None #optional
 # --------------------------------------------------------
+
+
 
 logging.basicConfig(level=logging.DEBUG if sys.argv[-1] == 'debug' else logging.INFO,
                     format="%(asctime)s | %(message)s")
@@ -30,7 +32,9 @@ try:
 except:
     _input = input
 
-
+if target_zone == None:
+    s = _input("Enter zone (like A2): ")
+    target_zone = 'ABCDEFGHIJKL'.find(s[0])+(int(s[1])-1)*12
 
 
 def get_access_token(force_input=False):
@@ -213,7 +217,6 @@ class Saliens(requests.Session):
                                    bar_format='{desc:<22} {percentage:3.0f}% |{bar}| {remaining:>10}',
                                    )
         sys.stdout.write("\n")
-        print(game.player_info['clan_info']['accountid'])
         sys.stdout.flush()
 
     def print_planet_progress(self):
@@ -319,7 +322,6 @@ while True:
 
     game.refresh_player_info()
     game.refresh_planet_info()
-    print game.planet['id']
     # if join didnt work for retry
     if str(game.planet['id']) != str(planet_id):
         sleep(2)
