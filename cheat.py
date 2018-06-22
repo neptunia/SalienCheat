@@ -296,22 +296,24 @@ while True:
         LOG.error("No uncaptured planets left :(")
         raise SystemExit
 
-    LOG.info("Joining planet %s..", planets[0]['id'])
+    planet_id = 7
 
-    planet_id = planets[0]['id']
+    LOG.info("Joining planet %s..", str(planet_id))
+
+    #planet_id = planets[0]['id']
     
 
-    #game.join_planet(planet_id)
+    game.join_planet(planet_id)
 
     # hardcoded planet id for targeting purposes; use inspect element on the real site to find this
-    game.join_planet(7)
+    #game.join_planet(7)
     deadline = time() + 60 * 30
 
     game.refresh_player_info()
     game.refresh_planet_info()
-
+    print game.planet['id']
     # if join didnt work for retry
-    if game.planet['id'] != planet_id:
+    if str(game.planet['id']) != str(planet_id):
         sleep(2)
         continue
 
