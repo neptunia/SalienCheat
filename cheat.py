@@ -353,10 +353,18 @@ while True:
 
         zone_id = zones[0]['zone_position']
 
+        print(zones)
+
 
         # hardcoded zone id; use inspect element on the real site to find this
         zone_id = target_zone
-        difficulty = zones[0]['difficulty']
+        difficulty = 1
+        for i in zones:
+            if zones[i]['zone_position'] == zone_id:
+
+                difficulty = zones[i]['difficulty']
+
+        print("difficulty level: ", difficulty)
 
         while time() < deadline and game.planet and not game.planet['zones'][zone_id]['captured']:
             game.print_player_info()
@@ -372,8 +380,8 @@ while True:
                 sleep(120)
             except KeyboardInterrupt:
                 raise SystemExit
-
-            score = 120 * (5 * (2**(difficulty - 1)))
+            score = 600
+            #score = 120 * (5 * (2**(difficulty - 1)))
             LOG.info("Submitting score of %s...", score)
             game.report_score(score)
 
