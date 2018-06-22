@@ -15,6 +15,12 @@ from getpass import getpass
 import requests
 from tqdm import tqdm
 
+
+# ----------------- MODIFY THESE TARGETS ----------------- 
+target_world = 7
+target_zone = 85
+# --------------------------------------------------------
+
 logging.basicConfig(level=logging.DEBUG if sys.argv[-1] == 'debug' else logging.INFO,
                     format="%(asctime)s | %(message)s")
 LOG = logging.getLogger()
@@ -23,6 +29,8 @@ try:
     _input = raw_input
 except:
     _input = input
+
+
 
 
 def get_access_token(force_input=False):
@@ -296,7 +304,7 @@ while True:
         LOG.error("No uncaptured planets left :(")
         raise SystemExit
 
-    planet_id = 7
+    planet_id = target_world
 
     LOG.info("Joining planet %s..", str(planet_id))
 
@@ -345,7 +353,7 @@ while True:
 
 
         # hardcoded zone id; use inspect element on the real site to find this
-        zone_id = 89
+        zone_id = target_zone
         difficulty = zones[0]['difficulty']
 
         while time() < deadline and game.planet and not game.planet['zones'][zone_id]['captured']:
